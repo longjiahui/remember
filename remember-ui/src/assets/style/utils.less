@@ -1,0 +1,60 @@
+@import url(variable.less);
+@import url(image.less);
+@import url(transition.less);
+@import url(widget/input);
+
+:root{
+    --text-color-default: @textColorDefault;
+    --text-color-light: @textColorLight;
+    --text-color-dark: @textColorDark;
+
+    --fs-base: @fsBase;
+    --fsS: @fsS;
+    --fsXS: @fsXS;
+    --fsM: @fsM;
+    --fsL: @fsL;
+    --fsXL: @fsXL;
+    --fsXXL: @fsXXL;
+
+    --shadow-default: @shadowDefault;
+    --shadow-light: @shadowLight;
+    --shadow-dark: @shadowDark;
+
+    --radiusM: @radiusM;
+    --radiusL: @radiusL;
+    --radiusXL: @radiusXL;
+
+    --speed-normal: @speedNormal;
+    --speed-slow: @speedSlow;
+    --speed-slower: @speedSlower;
+    --speed-fast: @speedFast;
+}
+
+//flex layout utils
+.container-row{
+    display: flex;
+    flex-direction: column;
+}
+.row-center-vertical{
+    align-items: center;
+}
+.row-center-horizontal{
+    justify-content: center;
+}
+.row-center{
+    .row-center-vertical;
+    .row-center-horizontal;
+}
+.column-center-vertical{
+    justify-content: center;
+}
+.column-center-horizontal{
+    align-items: center;
+}
+.column-center{
+    .column-center-vertical;
+    .column-center-horizontal;
+}
+.container-column{
+    display: flex;
+}

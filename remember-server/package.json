@@ -1,0 +1,29 @@
+{
+  "name": "remember-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "rm -rf dist && babel src -d dist && DB_HOST=docker node dist/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-compose": "^4.1.0",
+    "koa-mongo": "^1.9.1",
+    "koa-serve-decorator": "^1.1.5",
+    "log4js": "^6.1.2",
+    "md5": "^2.2.1"
+  },
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "validator-biang": "^1.0.8"
+  }
+}

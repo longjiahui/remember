@@ -1,0 +1,170 @@
+[2020-03-19T02:15:01.420] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-20T03:46:10.753] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-20T03:49:20.974] [ERROR] default - error unknown:
+ TypeError: Cannot destructure property 'username' of 'ctx.request.params' as it is undefined.
+    at login (D:\pros\remember-server\dist\controller\user.js:50:7)
+    at dispatch (D:\pros\remember-server\node_modules\koa-compose\index.js:42:32)
+    at D:\pros\remember-server\node_modules\koa-serve-decorator\src\route.js:108:15
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async D:\pros\remember-server\node_modules\koa-serve-decorator\src\service.js:19:9
+    at async D:\pros\remember-server\dist\db.js:7:3
+    at async koaMongo (D:\pros\remember-server\node_modules\koa-mongo\index.js:69:7)
+    at async D:\pros\remember-server\dist\log.js:64:3
+    at async D:\pros\remember-server\dist\log.js:20:5
+[2020-03-20T03:50:16.879] [ERROR] default - database error:
+ MongoError: collection name must be a String
+    at checkCollectionName (D:\pros\remember-server\node_modules\mongodb\lib\utils.js:100:11)
+    at new Collection (D:\pros\remember-server\node_modules\mongodb\lib\collection.js:104:3)
+    at Db.collection (D:\pros\remember-server\node_modules\mongodb\lib\db.js:431:26)
+    at login (D:\pros\remember-server\dist\controller\user.js:53:23)
+    at dispatch (D:\pros\remember-server\node_modules\koa-compose\index.js:42:32)
+    at D:\pros\remember-server\node_modules\koa-serve-decorator\src\route.js:108:15
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async D:\pros\remember-server\node_modules\koa-serve-decorator\src\service.js:19:9
+    at async D:\pros\remember-server\dist\db.js:7:3
+    at async koaMongo (D:\pros\remember-server\node_modules\koa-mongo\index.js:69:7) {
+  name: 'MongoError',
+  [Symbol(mongoErrorContextSymbol)]: {}
+}
+[2020-03-20T03:56:17.436] [ERROR] default - error unknown:
+ TypeError: Cannot read property 'findOne' of undefined
+    at UserService.checkPassword (D:\pros\remember-server\dist\controller\service\user.js:33:58)
+    at login (D:\pros\remember-server\dist\controller\user.js:53:38)
+    at dispatch (D:\pros\remember-server\node_modules\koa-compose\index.js:42:32)
+    at D:\pros\remember-server\node_modules\koa-serve-decorator\src\route.js:108:15
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async D:\pros\remember-server\node_modules\koa-serve-decorator\src\service.js:19:9
+    at async D:\pros\remember-server\dist\db.js:7:3
+    at async koaMongo (D:\pros\remember-server\node_modules\koa-mongo\index.js:69:7)
+    at async D:\pros\remember-server\dist\log.js:64:3
+    at async D:\pros\remember-server\dist\log.js:20:5
+[2020-03-20T03:56:44.034] [ERROR] default - error unknown:
+ TypeError: this.ctx.db.collections(...).findOne is not a function
+    at UserService.checkPassword (D:\pros\remember-server\dist\controller\service\user.js:33:58)
+    at login (D:\pros\remember-server\dist\controller\user.js:53:38)
+    at dispatch (D:\pros\remember-server\node_modules\koa-compose\index.js:42:32)
+    at D:\pros\remember-server\node_modules\koa-serve-decorator\src\route.js:108:15
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async D:\pros\remember-server\node_modules\koa-serve-decorator\src\service.js:19:9
+    at async D:\pros\remember-server\dist\db.js:7:3
+    at async koaMongo (D:\pros\remember-server\node_modules\koa-mongo\index.js:69:7)
+    at async D:\pros\remember-server\dist\log.js:64:3
+    at async D:\pros\remember-server\dist\log.js:20:5
+[2020-03-20T04:16:23.729] [ERROR] default - arg check failed:
+ {
+  error: 'error: password, rule: {"and":["string","[Function]"]}, theRule: [Function], desc: undefined',
+  key: 'password',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: [Function],
+  _origin: { val: 'sdf', rule: [Function] }
+}
+[2020-03-21T08:31:32.786] [ERROR] default - error unknown:
+ TimeoutError: ResourceRequest timed out
+    at ResourceRequest._fireTimeout (/home/anfo/Documents/pros/remember-server/node_modules/generic-pool/lib/ResourceRequest.js:62:17)
+    at Timeout.bound (/home/anfo/Documents/pros/remember-server/node_modules/generic-pool/lib/ResourceRequest.js:8:15)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7) {
+  name: 'TimeoutError'
+}
+[2020-03-21T08:31:54.612] [ERROR] default - error unknown:
+ TimeoutError: ResourceRequest timed out
+    at ResourceRequest._fireTimeout (/home/anfo/Documents/pros/remember-server/node_modules/generic-pool/lib/ResourceRequest.js:62:17)
+    at Timeout.bound (/home/anfo/Documents/pros/remember-server/node_modules/generic-pool/lib/ResourceRequest.js:8:15)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7) {
+  name: 'TimeoutError'
+}
+[2020-03-21T08:58:49.597] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-21T08:59:18.166] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-21T09:01:41.489] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-21T09:02:14.819] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-21T09:02:40.284] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-21T09:04:31.211] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-24T12:51:26.792] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-24T12:52:31.479] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}
+[2020-03-24T12:56:44.419] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: [Function], desc: undefined',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: [Function],
+  _origin: { val: '', rule: [Function] }
+}
+[2020-03-24T13:10:28.104] [ERROR] default - arg check failed:
+ {
+  error: 'error: username, rule: {"and":["string","[Function]"]}, theRule: , desc: path is unavailable which is nesessary',
+  key: 'username',
+  rule: { and: [ 'string', [Function] ] },
+  theRule: undefined,
+  _origin: { desc: 'path is unavailable which is nesessary' }
+}

@@ -1,0 +1,41 @@
+@import url(variable.less);
+
+.bottom-line-animation(@relPos: 0, @width: 1px, @speed: var(--speed-fast), @trigger: hover){
+    position: relative;
+    &::after{
+        content: '';
+        position: absolute;
+        /* - 使得 坐标轴 向上为- 向下为正*/
+        bottom: -@relPos;
+        left: 0;
+        width: 100%;
+        height: @width;
+        background: var(--text-color-light);
+        transform: scale(0);
+        transition: transform @speed;
+    }
+    &:hover::after{
+        transform: scale(1);
+    }
+}
+
+//
+.text-ellipsis{
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+
+.pc(@rules){
+    @media screen and (min-width: @widthLimit - 1px) {
+        @rules();
+    }
+}
+.mobile(@rules){
+    @media screen and (max-width: @widthLimit) {
+        @rules(); 
+    }
+}
