@@ -58,10 +58,10 @@ export default {
         padding: 10px 20px;
 
         &.first-item{
-            padding-left: 10px;
+            padding-left: 20px;
         }
         &.last-item{
-            padding-right: 10px;
+            padding-right: 20px;
         }
     }
 

@@ -23,18 +23,7 @@
 </template>
 
 <script>
-import Validator from 'validator-biang';
-
-const usernameType = {and: ['string', val=>val.length>6 && val.length < 20]};
-const passwordType = {and: ['string', val=>val.length>6 && val.length < 20]};
-let validator = new Validator({
-    passwordType(val){
-        return this.validate(val, passwordType)
-    },
-    usernameType(val){
-        return this.validate(val, usernameType)
-    },
-});
+import validator from '@/assets/script/validator';
 
 export default {
     data(){
