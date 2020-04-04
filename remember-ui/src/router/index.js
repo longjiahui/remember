@@ -12,6 +12,10 @@ const routes = [
   {
     path: '/login',
     component: ()=>import('../views/Login'),
+  },
+  {
+    path: '/console',
+    component: ()=>import('../views/Console'),
   }
   // {
   //   path: '/about',

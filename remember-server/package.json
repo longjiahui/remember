@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rm -rf dist && babel src -d dist && DB_HOST=docker node dist/server.js"
+    "start": "rm -rf dist && babel src -d dist && cross-env DB_HOST=localhost node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-decorators": "^7.8.3",
+    "cross-env": "^7.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",

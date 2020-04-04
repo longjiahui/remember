@@ -4,7 +4,7 @@ const {user: userCollection} = collections;
 const jwt = require("jsonwebtoken");
 
 
-const usernameType = {and: ['string', val=>val.length>4 && val.length < 20]};
+const usernameType = {and: ['string', val=>val.length>6 && val.length < 20]};
 const passwordType = {and: ['string', val=>val.length>6 && val.length < 20]};
 const userType = {
     username: usernameType,
@@ -19,7 +19,10 @@ class UserController{
     async register(ctx, next){
         let {username, password} = ctx.request.body;
         await ctx.db.collection(userCollection).insertOne({username, password});
-        ctx.body = ret.SUCCEED();
+        let token = jwt.sign(username, jwtSecret);
+        ctx.body = ret.SUCCEED({
+            token
+        });
         await next();
     }
 
@@ -38,6 +41,15 @@ class UserController{
                 user
             });
         }
+        await next();
+    }
+
+    @route('/check')
+    async check(ctx, next){
+        let {username} = ctx.request.body;
+        ctx.body = ret.SUCCEED({
+            exist: await ctx.userService.checkUsernameExist(username), 
+        });
         await next();
     }
 }

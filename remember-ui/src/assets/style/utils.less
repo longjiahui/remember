@@ -1,7 +1,10 @@
 @import url(variable.less);
 @import url(image.less);
 @import url(transition.less);
+@import url(elementuioverride.less);
+
 @import url(widget/input);
+@import url(widget/button);
 
 :root{
     --text-color-default: @textColorDefault;
@@ -57,4 +60,25 @@
 }
 .container-column{
     display: flex;
+}
+
+@placeholderStyle: {
+    color: #ccc;
+};
+::-webkit-input-placeholder { /* WebKit browsers */
+    @placeholderStyle();
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    @placeholderStyle();
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    @placeholderStyle();
+}   
+
+.auto-width{
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
 }

@@ -1,0 +1,22 @@
+body{
+    &>.el-loading-mask{
+        background: none;
+        pointer-events: none;
+        .el-loading-spinner{
+            width: auto;
+            bottom: 10px;
+            right: 10px;
+            top: auto;
+            transform: scale(.5);
+            filter: grayscale(1) brightness(0);
+            .path{
+                stroke-width: 4;
+            }
+        }
+    }
+    .el-loading-mask{
+        .el-loading-spinner{
+            filter: grayscale(1) brightness(0);
+        }
+    }
+}
