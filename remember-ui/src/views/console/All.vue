@@ -73,7 +73,7 @@ export default {
     methods: {
         handleNewKnowledge(newKnowledge){
             this.knowledges.unshift(newKnowledge);
-            ++total;
+            ++this.total;
             if(this.knowledges.length === pageSize){
                 this.knowledges.pop()
             }
@@ -101,13 +101,17 @@ export default {
             }
         },
         hideOtherEditor(current){
-            this.$refs.knowledgeEditor.forEach(editor=>{
-                if(editor._uid !== current._uid){
-                    editor.hide();
+            if(this.$refs.knowledgeEditor && this.$refs.knowledgeEditor.length > 0){
+                this.$refs.knowledgeEditor.forEach(editor=>{
+                    if(editor._uid !== current._uid){
+                        editor.hide();
+                    }
+                })
+            }
+            if(this.$refs.knowledgeEditorNew){
+                if(this.$refs.knowledgeEditorNew._uid !== current._uid){
+                    this.$refs.knowledgeEditorNew.hide();
                 }
-            })
-            if(this.$refs.knowledgeEditorNew._uid !== current._uid){
-                this.$refs.knowledgeEditorNew.hide();
             }
         }
     }
