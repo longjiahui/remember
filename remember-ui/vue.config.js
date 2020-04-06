@@ -9,4 +9,5 @@ module.exports = {
             }
         },
     },
+    outputDir: '../remember-server/static',
 }

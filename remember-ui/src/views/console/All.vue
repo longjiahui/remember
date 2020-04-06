@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
         <div class="new-block">
-            <knowledge-editor @show="hideOtherEditor(arguments[0])" ref="knowledgeEditorNew" @new="knowledges.unshift(arguments[0]) && knowledges.pop() && ++total">
+            <knowledge-editor @show="hideOtherEditor(arguments[0])" ref="knowledgeEditorNew" @new="handleNewKnowledge">
                 <div class="box button opacity-hover button-large btn-add button-with-radius container-column column-center-vertical"><i class="iconfont icon-add" style="margin-right: 5px"></i>新建知识</div>
             </knowledge-editor>
         </div>
@@ -71,6 +71,13 @@ export default {
         this.refetchData();
     },
     methods: {
+        handleNewKnowledge(newKnowledge){
+            this.knowledges.unshift(newKnowledge);
+            ++total;
+            if(this.knowledges.length === pageSize){
+                this.knowledges.pop()
+            }
+        },
         refetchData(){
             if(!this.refetchLock){
                 this.refetchLock = true;
