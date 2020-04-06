@@ -9,7 +9,7 @@
                 </div>
                 <transition name="fade">
                     <div @click="passwordState = true" class="input-info go-register" v-if="username && !usernameWrong && !nameExist">用户名 <span style="font-weight: bold">{{username}}</span> 未注册，点击前往注册</div>
-                    <div v-if="username && usernameWrong" class="input-info go-register">用户名长度必须为6-20个字符</div>
+                    <div v-if="username && usernameWrong" class="input-info go-register">用户名长度必须为7-20个字符</div>
                 </transition>
             </div>
             <div key="password" v-else class="input-group">
@@ -18,7 +18,7 @@
                     <input ref="passwordInput" @input="handleInputPassword" @keyup.enter="handleClickEnter" placeholder="密码" v-model="password" type="password" class="input input-large">
                     <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
                     <transition name="fade">
-                        <div v-if="!nameExist && passwordWrong" class="input-info go-register">用户名长度必须为6-20个字符</div>
+                        <div v-if="!nameExist && passwordWrong" class="input-info go-register">密码长度必须为7-20个字符</div>
                     </transition>
                 </div>
             </div>
