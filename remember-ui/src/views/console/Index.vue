@@ -37,6 +37,7 @@ export default {
 .navbar{
     // font-weight: bold;
     height: @largeHeight;
+    border-radius: 0;
 }
 .navbar-content{
     display: flex;

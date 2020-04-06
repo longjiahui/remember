@@ -2,7 +2,7 @@
     <div class="main-content">
         <div class="new-block">
             <knowledge-editor @show="hideOtherEditor(arguments[0])" ref="knowledgeEditorNew" @new="handleNewKnowledge">
-                <div class="box button opacity-hover button-large btn-add button-with-radius container-column column-center-vertical"><i class="iconfont icon-add" style="margin-right: 5px"></i>新建知识</div>
+                <div class="box button opacity-hover button-large btn-add container-column column-center-vertical"><i class="iconfont icon-add" style="margin-right: 5px"></i>新建知识</div>
             </knowledge-editor>
         </div>
         <transition name="slide-fade">

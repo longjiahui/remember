@@ -2,6 +2,7 @@
     <div class="login">
         <transition name="slide-fade" mode="out-in" appear @after-enter="handleStateSwitch">
             <div key="username" v-if="!passwordState" class="input-group">
+                <h1 style="margin-bottom: 20px">Step1: 输入登录用户名</h1>
                 <div :class="`input-group-content container-column${username && (!nameExist || usernameWrong)?' with-error':''}`">
                     <input autofocus ref="usernameInput" @keyup.enter="handleClickEnter" placeholder="用户名" v-model="username" @input="handleInputUsername" type="text" class="input input-large">
                     <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
@@ -12,10 +13,13 @@
                 </transition>
             </div>
             <div key="password" v-else class="input-group">
-                <div @click="passwordState = false" class="back-username-input"><span style="font-weight: bold">{{username}} : </span>返回</div>
+                <div @click="handleBack" class="back-username-input"><span style="font-weight: bold">{{username}} : </span>返回</div>
                 <div :class="`input-group-content container-column${password && passwordWrong?' with-error':''}`">
-                    <input ref="passwordInput" @input="passwordWrong = false" @keyup.enter="handleClickEnter" placeholder="密码" v-model="password" type="password" class="input input-large">
+                    <input ref="passwordInput" @input="handleInputPassword" @keyup.enter="handleClickEnter" placeholder="密码" v-model="password" type="password" class="input input-large">
                     <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
+                    <transition name="fade">
+                        <div v-if="!nameExist && passwordWrong" class="input-info go-register">用户名长度必须为6-20个字符</div>
+                    </transition>
                 </div>
             </div>
         </transition>
@@ -29,6 +33,7 @@ export default {
     data(){
         return {
             timeoutInstance: null,
+            passwordTimeoutInstance: null,
             username: '',
             nameExist: true,
             passwordState: false,
@@ -45,6 +50,26 @@ export default {
         }
     },
     methods: {
+        handleInputPassword(e){
+            this.passwordWrong = false;
+            if(this.passwordTimeoutInstance){
+                clearTimeout(this.passwordTimeoutInstance);
+                this.passwordTimeoutInstance = null;
+            }
+            if(e.target.value){
+                this.passwordTimeoutInstance = setTimeout(()=>{
+                    //check password
+                    this.checkPassword(e.target.value);
+                }, 1000);
+            }
+        },
+        checkPassword(password){
+            let promise = validator.validate(password, 'passwordType');
+            promise.catch(err=>{
+                this.passwordWrong = true;
+            });
+            return promise;
+        },
         handleStateSwitch(){
             if(this.$refs.passwordInput){
                 this.$refs.passwordInput.focus();
@@ -52,6 +77,12 @@ export default {
             if(this.$refs.usernameInput){
                 this.$refs.usernameInput.focus();
             }
+        },
+        handleBack(){
+            this.passwordState = false;
+            this.password = '';
+            this.passwordWrong = false;
+            localStorage.removeItem('username');
         },
         checkUsername(username){
             if(this.timeoutInstance){
@@ -101,13 +132,19 @@ export default {
                     });
                 }else{
                     //register
-                    this.$api.user.register(this.username, this.password).then(token=>{
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('username', this.username);
-                        this.$router.push('/console');
-                    }).catch(res=>{
-                        console.error(res);
-                        this.passwordWrong = true;
+                    if(this.passwordTimeoutInstance){
+                        clearTimeout(this.passwordTimeoutInstance);
+                        this.passwordTimeoutInstance = null;
+                    }
+                    this.checkPassword(this.password).then(()=>{
+                        this.$api.user.register(this.username, this.password).then(token=>{
+                            localStorage.setItem('token', token);
+                            localStorage.setItem('username', this.username);
+                            this.$router.push('/console');
+                        }).catch(res=>{
+                            console.error(res);
+                            this.passwordWrong = true;
+                        });
                     });
                 }
             }
@@ -142,7 +179,6 @@ export default {
     position: absolute;
     bottom: 0;
     transform: translate(0, calc(100% + 15px));
-    white-space: nowrap;
     cursor: pointer;
 }
 .back-username-input{
@@ -156,6 +192,7 @@ export default {
 .input-group-content{
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: var(--shadow-light);
     transition: box-shadow var(--speed-slow);
 
     &.with-error{
@@ -164,8 +201,7 @@ export default {
 }
 .input-group{
     position: relative;
-    width: 250px;
-    box-shadow: var(--shadow-light);
+    
 }
 .error-msg{
     overflow: hidden;

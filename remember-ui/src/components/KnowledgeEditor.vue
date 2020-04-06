@@ -55,7 +55,6 @@ export default {
     },
     handleSaveKnowledge(){
       if(this._knowledge.content){
-          //create
           this.$api.knowledge.save(this._knowledge).then((data)=>{
               if(this.knowledge._id){
                 //update
@@ -63,8 +62,8 @@ export default {
               }else{
                 //insert
                 this.$emit('new', data);
+                this._knowledge = {};
               }
-              this._knowledge = {};
               this.state = false;
           });
       }else{
