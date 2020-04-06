@@ -4,7 +4,9 @@ import router from './router'
 import store from './store'
 import api from './plugins/api';
 import ElementUI from './plugins/elementui';
+import utils from './plugins/utils';
 
+Vue.use(utils);
 Vue.use(api);
 Vue.use(ElementUI);
 

@@ -12,8 +12,12 @@ module.exports = {
     
     //table
     collections: {
-        user: 'user'
+		user: 'user',
+		knowledge: 'knowledge',
 	},
+
+	//默认记忆等级
+	defaultLevel: 5,
 	
 	// 返回表示
 	ret: {

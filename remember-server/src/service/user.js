@@ -1,12 +1,17 @@
 const {collections} = require('../config');
 const userCollection = collections.user;
 const {service} = require('koa-serve-decorator');
+const ObjectId = require('mongodb').ObjectId;
 
 @service
 class UserService{
 
-    async getUser(_id){
-        return await this.ctx.db.collection(userCollection).findOne({_id}, {projection: {password: 0}});
+    async getUser({_id, username}){
+        if(_id){
+            return await this.ctx.db.collection(userCollection).findOne({_id: ObjectId(_id)}, {projection: {password: 0}});
+        }else if(username){
+            return await this.ctx.db.collection(userCollection).findOne({username}, {projection: {password: 0}});
+        }
     }
 
     async checkUsernameExist(username){

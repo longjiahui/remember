@@ -94,7 +94,7 @@ export default {
                     this.$api.user.login(this.username, this.password).then(token=>{
                         localStorage.setItem('token', token);
                         localStorage.setItem('username', this.username);
-                        this.$router.push('/');
+                        this.$router.push('/console');
                     }).catch(res=>{
                         console.error(res);
                         this.passwordWrong = true;
@@ -104,7 +104,7 @@ export default {
                     this.$api.user.register(this.username, this.password).then(token=>{
                         localStorage.setItem('token', token);
                         localStorage.setItem('username', this.username);
-                        this.$router.push('/');
+                        this.$router.push('/console');
                     }).catch(res=>{
                         console.error(res);
                         this.passwordWrong = true;
@@ -159,7 +159,7 @@ export default {
     transition: box-shadow var(--speed-slow);
 
     &.with-error{
-        box-shadow:rgba(236, 131, 131, 0.7) 0 0 10px;
+        box-shadow: var(--shadow-error);
     }
 }
 .input-group{

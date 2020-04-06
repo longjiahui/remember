@@ -4,16 +4,24 @@
     width: 100%;
     background: white;
     border: none;
-    padding: 0 6px;
+    padding: 0 10px;
     display: inline-block;
 
     &.input-large{
-        padding: 0 12px;
+        padding: 0 15px;
         font-size: var(--fsL);
         height: @largeHeight;
         line-height: @largeHeight;
     }
 
+    &:focus{
+        outline: none;
+    }
+}
+.textarea{
+    border: none;
+    resize: none;
+    padding: 10px;
     &:focus{
         outline: none;
     }

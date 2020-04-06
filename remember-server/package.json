@@ -19,7 +19,7 @@
     "koa-body": "^4.1.1",
     "koa-compose": "^4.1.0",
     "koa-mongo": "^1.9.1",
-    "koa-serve-decorator": "^1.1.5",
+    "koa-serve-decorator": "^1.1.9",
     "log4js": "^6.1.2",
     "md5": "^2.2.1"
   },

@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const {initAll} = require('koa-serve-decorator');
+const {jwtSecret} = require('./config');
 
 let app = new Koa();
 
@@ -17,8 +18,10 @@ app.use(initAll({
         [`${__dirname}/service`],
     ],
     route:{
-        base: ['/api', 'all']
-    }
+        base: ['/api', 'all'],
+        getToken: ctx=>ctx.headers.authorization,
+        jwtSecret
+    },
 }));
 
 

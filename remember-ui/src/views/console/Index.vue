@@ -1,17 +1,22 @@
 <template>
     <div>
-        <nav class="navbar container-row row-vertical-center">
+        <nav class="navbar container-row row-vertical-center box">
             <div class="auto-width navbar-content">
                 <div class="navbar-group container-column">
-                    <div class="nav-item first-item">知识库</div>
-                    <div class="nav-item">待复习</div>
+                    <router-link class="nav-item first-item" to="/console/all">知识库</router-link>
+                    <router-link class="nav-item" to="/console/review">待复习</router-link>
                 </div>
                 <div class="navbar-group container-column">
                     <div class="nav-item">设置</div>
-                    <div @click="handleLogout" class="nav-item last-item">退出</div>
+                    <div @click="handleLogout" class="nav-item last-item"><i class="iconfont icon-log-out"></i></div>
                 </div>
             </div>
         </nav>
+        <div class="auto-width">
+            <transition name="fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </div>
     </div>
 </template>
 
@@ -21,20 +26,17 @@ export default {
         handleLogout(){
             localStorage.removeItem('token');
             this.$router.push('/login');
-        }
+        },
     }
 }
 </script>
 
 <style lang="less" scoped>
 @import url(~@/assets/style/variable);
-
+@import url(~@/assets/style/function);
 .navbar{
-    font-size: var(--fsL);
     // font-weight: bold;
     height: @largeHeight;
-    background: white;
-    box-shadow: var(--shadow-light)
 }
 .navbar-content{
     display: flex;
@@ -54,6 +56,7 @@ export default {
 
     transition: all .3s;
     &:hover{
+        font-weight: bold;
         background: whitesmoke;
         padding: 10px 20px;
 

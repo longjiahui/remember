@@ -73,8 +73,22 @@ export default (Vue)=>{
                 return _axios.post('/user/login', {
                     username,password
                 }).then(res=>res.data.data.token);
-            }
+            },
         },
+        knowledge: {
+            pagination({no, size, review}){
+                return _axios.post('/knowledge/pagination', arguments[0]).then(res=>res.data.data);
+            },
+            save(knowledge){
+                return _axios.post('/knowledge/save', knowledge).then(res=>res.data.data);
+            },
+            delete(_ids){
+                return _axios.post('/knowledge/delete', {_ids}).then(res=>true);
+            },
+            review(_id){
+                return _axios.post('/knowledge/review', {_id}).then(res=>true);
+            }
+        }
         // article:{
         //     pagination(no, size, category){
         //         return _axios.post('/article/pagination', {

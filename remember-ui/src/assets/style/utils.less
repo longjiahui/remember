@@ -1,4 +1,5 @@
 @import url(variable.less);
+@import url(function.less);
 @import url(image.less);
 @import url(transition.less);
 @import url(elementuioverride.less);
@@ -22,6 +23,7 @@
     --shadow-default: @shadowDefault;
     --shadow-light: @shadowLight;
     --shadow-dark: @shadowDark;
+    --shadow-error: @shadowError;
 
     --radiusM: @radiusM;
     --radiusL: @radiusL;
@@ -49,10 +51,10 @@
     .row-center-horizontal;
 }
 .column-center-vertical{
-    justify-content: center;
+    align-items: center;
 }
 .column-center-horizontal{
-    align-items: center;
+    justify-content: center;
 }
 .column-center{
     .column-center-vertical;
@@ -60,6 +62,9 @@
 }
 .container-column{
     display: flex;
+}
+.column-space-between{
+    justify-content: space-between;
 }
 
 @placeholderStyle: {
@@ -81,4 +86,20 @@
     width: 100%;
     max-width: 600px;
     margin: auto;
+}
+
+.box{
+    background: white;
+    box-shadow: var(--shadow-light);
+}
+.inline-box{
+    display: inline-block;
+    .box;
+}
+
+.opacity-hover{
+    transition: opacity var(--speed-fast);
+    &:hover{
+        opacity: .7;
+    }
 }

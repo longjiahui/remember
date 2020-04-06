@@ -14,30 +14,36 @@ module.exports = compose([ async (ctx, next) => {
     try{
         await next();
     }catch(err){
-        if(err.code === errno.ERR_VERIFY_ERROR || err.code === errno.ERR_NOTOKEN){
-            ctx.logger.error('logincheck failed:\n', err.msg);
-            err = config.ret.ERR_UNLOGIN;
-        }
-        if(err.code === errno.ERR_ARG){
-            ctx.logger.error('arg check failed:\n', err.msg);
-            err = config.ret.ERR_ARG;
-        }
-
-        //错误处理如日志处理
-        if(err.code){
-            //过滤已知的错误返回
-            ctx.logger.debug(err);
-			ctx.body = err;
-        }else{
-            if(err.name === 'MongoError'){
-                //数据库错误
-                ctx.logger.error('database error:\n', err);
-                ctx.body = config.ret.ERR_DB;
-            }else{
-                //错误未知...
-                ctx.logger.error('error unknown:\n', err);
-                ctx.body = config.ret.ERR_UNKNOWN;
+        if(err){
+            if(err.code === errno.ERR_VERIFY_ERROR || err.code === errno.ERR_NOTOKEN){
+                ctx.logger.error('logincheck failed:\n', err.msg);
+                err = config.ret.ERR_UNLOGIN;
             }
+            if(err.code === errno.ERR_ARG){
+                ctx.logger.error('arg check failed:\n', err.msg);
+                err = config.ret.ERR_ARG;
+            }
+
+            //错误处理如日志处理
+            if(err.code){
+                //过滤已知的错误返回
+                ctx.logger.debug(err);
+                ctx.body = err;
+            }else{
+                if(err.name === 'MongoError'){
+                    //数据库错误
+                    ctx.logger.error('database error:\n', err);
+                    ctx.body = config.ret.ERR_DB;
+                }else{
+                    //错误未知...
+                    ctx.logger.error('error unknown:\n', err);
+                    ctx.body = config.ret.ERR_UNKNOWN;
+                }
+            }
+        }else{
+            //错误未知...
+            ctx.logger.error('error unknown:\n', err);
+            ctx.body = config.ret.ERR_UNKNOWN;
         }
     }
     const ms = Date.now() - start;
