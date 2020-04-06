@@ -8,7 +8,7 @@
     <div :key="2" v-else style="width: 100%">
       <div class="box new-box container-row">
           <input v-model="_knowledge.categories" type="text" class="input input-categories" placeholder="(选填) 类别1, 类别2...">
-          <textarea v-model="_knowledge.content" @keyup.enter="handleSaveKnowledge" @input="contentError = false" :class="`textarea textarea-content${contentError?' input-error':''}`" placeholder="(markdown) 请输入内容 ..."></textarea>
+          <textarea v-model="_knowledge.content" @input="contentError = false" :class="`textarea textarea-content${contentError?' input-error':''}`" placeholder="(markdown) 请输入内容 ..."></textarea>
       </div>
       <div class="container-column column-space-between">
           <div class="box container-column">
