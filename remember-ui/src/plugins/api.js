@@ -44,7 +44,11 @@ _axios.interceptors.response.use((response)=>{
     if(response && response.data){
         let {code} = response.data;
         if(code + '' !== '0'){
-            throw response;
+            if(+code === -1001){
+                vm.$router.push('/login');
+            }else{
+                throw response;
+            }
         }
         return response;
     }

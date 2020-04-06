@@ -8,18 +8,6 @@
 
 <script>
 export default {
-  watch:{
-    $route:{
-      immediate: true,
-      handler(newRoute){
-        //判断是否登录
-        let token = localStorage.getItem('token');
-        if(!token){
-          this.$router.push('/login');
-        }
-      }
-    }
-  }
 }
 </script>
 

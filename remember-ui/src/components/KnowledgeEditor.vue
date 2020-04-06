@@ -92,10 +92,10 @@ export default {
 }
 
 .input-categories{
-    border-bottom: 1px dashed lightgray;
+  border-bottom: 1px dashed lightgray;
 }
 .input-error{
-    box-shadow: var(--shadow-error);
+  box-shadow: var(--shadow-error);
 }
 .textarea-content{
   transition: box-shadow var(--speed-slow);

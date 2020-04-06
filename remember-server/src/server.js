@@ -43,4 +43,15 @@ app.use((ctx) =>{
 })
 
 
-app.listen(3000);
+let port = null;
+if(!isNaN(+process.argv[2])){
+    port = +process.argv[2];
+}
+try{
+    let server = app.listen(port, ()=>{
+        let {port} = server.address();
+        console.log(`Server started at: http://localhost:${port}`);
+    });
+}catch(err){
+	console.error(err);
+}

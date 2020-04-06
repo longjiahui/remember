@@ -7,5 +7,15 @@
 </template>
 <script>
 export default {
+    watch:{
+        $route: {
+            immediate:true,
+            handler(newRoute){
+                if(newRoute.path === '/'){
+                    this.$router.replace('/console');
+                }
+            }
+        }
+    }
 }
 </script>

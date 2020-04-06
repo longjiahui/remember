@@ -3,8 +3,8 @@
         <nav class="navbar container-row row-vertical-center box">
             <div class="auto-width navbar-content">
                 <div class="navbar-group container-column">
-                    <router-link class="nav-item first-item" to="/console/all">知识库</router-link>
-                    <router-link class="nav-item" to="/console/review">待复习</router-link>
+                    <router-link :class="`nav-item first-item ${$route.path==='/console/all'?'active':''}`" to="/console/all">知识库</router-link>
+                    <router-link :class="`nav-item ${$route.path==='/console/review'?'active':''}`" to="/console/review">待复习</router-link>
                 </div>
                 <div class="navbar-group container-column">
                     <div class="nav-item">设置</div>
@@ -73,6 +73,15 @@ export default {
     }
     &.last-item{
         padding-right: 0;
+    }
+    &.active{
+        background: black;
+        color: white;
+        font-weight: bold;
+        padding: 10px 20px;
+        &.first-item{
+            padding-left: 20px;
+        }
     }
 }
 </style>
