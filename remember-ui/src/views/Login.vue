@@ -1,26 +1,36 @@
 <template>
     <div class="login">
-        <transition name="slide-fade" mode="out-in" appear @after-enter="handleStateSwitch">
-            <div key="username" v-if="!passwordState" class="input-group">
-                <h1 style="margin-bottom: 20px">Step1: 输入登录用户名</h1>
-                <div :class="`input-group-content container-column${username && (!nameExist || usernameWrong)?' with-error':''}`">
-                    <input autofocus ref="usernameInput" @keyup.enter="handleClickEnter" placeholder="用户名" v-model="username" @input="handleInputUsername" type="text" class="input input-large">
-                    <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
-                </div>
-                <transition name="fade">
-                    <div @click="passwordState = true" class="input-info go-register" v-if="username && !usernameWrong && !nameExist">用户名 <span style="font-weight: bold">{{username}}</span> 未注册，点击前往注册</div>
-                    <div v-if="username && usernameWrong" class="input-info go-register">用户名长度必须为7-20个字符</div>
+        <transition name="fade" mode="out-in">
+            <div v-if="publicKey">
+                <transition name="slide-fade" mode="out-in" appear @after-enter="handleStateSwitch">
+                    <div key="username" v-if="!passwordState" class="input-group">
+                        <h1 style="margin-bottom: 20px">Step1: 输入登录用户名</h1>
+                        <div :class="`input-group-content container-column${username && (!nameExist || usernameWrong)?' with-error':''}`">
+                            <input autofocus ref="usernameInput" @keyup.enter="handleClickEnter" placeholder="用户名" v-model="username" @input="handleInputUsername" type="text" class="input input-large">
+                            <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
+                        </div>
+                        <transition name="fade">
+                            <div @click="passwordState = true" class="input-info go-register" v-if="username && !usernameWrong && !nameExist">用户名 <span style="font-weight: bold">{{username}}</span> 未注册，点击前往注册</div>
+                            <div v-if="username && usernameWrong" class="input-info go-register">用户名长度必须为7-20个字符</div>
+                        </transition>
+                    </div>
+                    <div key="password" v-else class="input-group">
+                        <div @click="handleBack" class="back-username-input"><span style="font-weight: bold">{{username}} : </span>返回</div>
+                        <div :class="`input-group-content container-column${password && passwordWrong?' with-error':''}`">
+                            <input ref="passwordInput" @input="handleInputPassword" @keyup.enter="handleClickEnter" placeholder="密码" v-model="password" type="password" class="input input-large">
+                            <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
+                            <transition name="fade">
+                                <div v-if="!nameExist && passwordWrong" class="input-info go-register">密码长度必须为7-20个字符</div>
+                            </transition>
+                        </div>
+                    </div>
                 </transition>
             </div>
-            <div key="password" v-else class="input-group">
-                <div @click="handleBack" class="back-username-input"><span style="font-weight: bold">{{username}} : </span>返回</div>
-                <div :class="`input-group-content container-column${password && passwordWrong?' with-error':''}`">
-                    <input ref="passwordInput" @input="handleInputPassword" @keyup.enter="handleClickEnter" placeholder="密码" v-model="password" type="password" class="input input-large">
-                    <div @click="handleClickEnter" class="button button-large btn-yes"><i class="iconfont icon-enter"></i></div>
-                    <transition name="fade">
-                        <div v-if="!nameExist && passwordWrong" class="input-info go-register">密码长度必须为7-20个字符</div>
-                    </transition>
-                </div>
+            <div v-else>
+                <transition name="fade" mode="out-in">
+                    <h1 key="0" v-if="loadingPublicKey">加载中</h1>
+                    <h1 key="1" v-else>加载失败，请刷新页面</h1>
+                </transition>
             </div>
         </transition>
     </div>
@@ -28,6 +38,7 @@
 
 <script>
 import validator from '@/assets/script/validator';
+import NodeRSA from 'node-rsa';
 
 export default {
     data(){
@@ -40,6 +51,13 @@ export default {
             password: '',
             passwordWrong: false,
             usernameWrong: false,
+            publicKey: '',
+            loadingPublicKey: true,
+        }
+    },
+    computed:{
+        passwordEncryted(){
+            return this.publicKey.encrypt(this.password, 'base64');
         }
     },
     created(){
@@ -48,6 +66,12 @@ export default {
             this.username = username;
             this.passwordState = true;
         }
+        this.$api.key.get().then(key=>{
+            this.publicKey = new NodeRSA();
+            this.publicKey.importKey(key, 'pkcs8-public-pem');
+        }).finally(()=>{
+            this.loadingPublicKey = false;
+        });
     },
     methods: {
         handleInputPassword(e){
@@ -122,7 +146,7 @@ export default {
             }else{
                 if(this.nameExist){
                     //login
-                    this.$api.user.login(this.username, this.password).then(token=>{
+                    this.$api.user.login(this.username, this.passwordEncryted).then(token=>{
                         localStorage.setItem('token', token);
                         localStorage.setItem('username', this.username);
                         this.$router.push('/console');
@@ -137,7 +161,7 @@ export default {
                         this.passwordTimeoutInstance = null;
                     }
                     this.checkPassword(this.password).then(()=>{
-                        this.$api.user.register(this.username, this.password).then(token=>{
+                        this.$api.user.register(this.username, this.passwordEncryted).then(token=>{
                             localStorage.setItem('token', token);
                             localStorage.setItem('username', this.username);
                             this.$router.push('/console');

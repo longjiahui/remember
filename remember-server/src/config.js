@@ -1,6 +1,17 @@
-module.exports = {
-    jwtSecret: 'secret',
 
+const NodeRSA = require('node-rsa');
+
+//生成公私钥对
+let key = new NodeRSA();
+key.generateKeyPair();
+// let privateKey = key.exportKey('pkcs8');
+let publicKey = key.exportKey('pkcs8-public');
+
+
+module.exports = {
+	jwtSecret: 'secret',
+	key,
+	publicKey,
 	// db
 	mongodb:{
 		host: `${process.env.DB_HOST || 'localhost'}`,

@@ -1,11 +1,11 @@
 const {route, param} = require('koa-serve-decorator');
-const {collections, jwtSecret, ret} = require('../config');
+const {collections, jwtSecret, ret, key} = require('../config');
 const {user: userCollection} = collections;
 const jwt = require("jsonwebtoken");
 
 
 const usernameType = {and: ['string', val=>val.length>6 && val.length < 20]};
-const passwordType = {and: ['string', val=>val.length>6 && val.length < 20]};
+const passwordType = 'truthyString';
 const userType = {
     username: usernameType,
     password: passwordType
@@ -18,6 +18,7 @@ class UserController{
     @param(userType)
     async register(ctx, next){
         let {username, password} = ctx.request.body;
+        password = ctx.keyService.decrypt(password);
         await ctx.db.collection(userCollection).insertOne({username, password});
         let token = jwt.sign(username, jwtSecret);
         ctx.body = ret.SUCCEED({
@@ -30,6 +31,7 @@ class UserController{
     @param(userType)
     async login(ctx, next){
         let {username, password} = ctx.request.body;
+        password = ctx.keyService.decrypt(password);
         //verify username and password
         let user = await ctx.userService.checkPassword(username, password);
         if(!user){

@@ -79,6 +79,11 @@ export default (Vue)=>{
                 }).then(res=>res.data.data.token);
             },
         },
+        key: {
+            get(){
+                return _axios.post('/key/get').then(res=>res.data.data);
+            }
+        },
         knowledge: {
             pagination({no, size, review}){
                 return _axios.post('/knowledge/pagination', arguments[0]).then(res=>res.data.data);

@@ -23,7 +23,8 @@
     "koa-static-cache": "^5.1.2",
     "log4js": "^6.1.2",
     "lru-cache": "^5.1.1",
-    "md5": "^2.2.1"
+    "md5": "^2.2.1",
+    "node-rsa": "^1.0.8"
   },
   "devDependencies": {
     "axios": "^0.19.2",
