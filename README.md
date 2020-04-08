@@ -16,7 +16,7 @@
 
 # remember-server
 
-koa 服务器，需要mongodb前置，启动前需要启动一个mongodb，或者远程链接，再启动前设置环境变量 DB_HOST 可以修改连接数据库的地址
+koa 服务器，需要mongodb前置，启动前需要启动一个mongodb，或者远程链接，再启动前设置环境变量 DB_HOST 可以修改连接数据库的ip，默认ip是localhost,port：27017
 
 ### 启动
 
