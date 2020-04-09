@@ -1,8 +1,5 @@
 const {service} = require('koa-serve-decorator');
 
-//ms
-const dms = 1*24*60*60*1000;
-
 @service
 class Utils{
     stringToArray(str){
@@ -18,12 +15,5 @@ class Utils{
             return arr.join(split);
         }
         return '';
-    }
-    getDateByLevel(begin, level){
-        var d = 1;
-        while(--level){
-            d+=d;
-        }
-        return begin + d * dms;
     }
 }

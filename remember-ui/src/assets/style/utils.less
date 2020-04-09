@@ -67,6 +67,13 @@
     justify-content: space-between;
 }
 
+.column-item-main{
+    width: 100%;
+}
+.column-item{
+    flex-shrink: 0;
+}
+
 @placeholderStyle: {
     color: #ccc;
 };
@@ -100,7 +107,7 @@
 }
 
 .opacity-hover{
-    transition: opacity var(--speed-fast);
+    transition: all var(--speed-fast);
     &:hover{
         opacity: .7;
     }

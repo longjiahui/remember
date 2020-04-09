@@ -9,6 +9,7 @@
 
 <script>
 const dms = 1 * 24 * 60 * 60 * 1000;
+const hms = 1 * 60 * 60 * 1000;
 export default {
     props:{
         knowledge: {
@@ -20,13 +21,22 @@ export default {
         getTimeDesc(time){
             let offset = time - Date.now();
 
-            offset = offset / dms;
-            let d = Math.floor(offset);
+            let dOffset = offset / dms;
+            let d = Math.floor(dOffset);
             if(isNaN(d)){
                 return '';
             }else if (d < 0){
                 return '待复习';
             }else if(d === 0){
+                let h = (offset % dms) / hms;
+                h = Math.floor(h);
+                if(isNaN(h)){
+                    return '';
+                }else if(h <= 0){
+                    return '半小时内复习';
+                }else{
+                    return `${h}小时后需要复习`;
+                }
                 return '今天需要复习';
             }else if(d === 1){
                 return '明天需要复习';

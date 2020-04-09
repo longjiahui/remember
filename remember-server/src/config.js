@@ -19,7 +19,14 @@ module.exports = {
 		db: 'remember',
 		max: 100,
 		min: 1,
-    },
+	},
+	
+	//imap
+	smtp:{
+		user: process.env.EMAIL,
+		password: process.env.EMAIL_PASSWORD,
+		host: 'smtp.exmail.qq.com',
+	},
     
     //table
     collections: {

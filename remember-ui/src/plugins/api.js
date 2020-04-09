@@ -78,6 +78,15 @@ export default (Vue)=>{
                     username,password
                 }).then(res=>res.data.data.token);
             },
+            getSetting(){
+                return _axios.post('/user/setting/get').then(res=>res.data.data);
+            },
+            saveSetting(setting){
+                return _axios.post('/user/setting/save', setting).then(res=>true);
+            },
+            verifyEmail(email){
+                return _axios.post('/user/setting/email/verifyrequest', {email}).then(res=>true);
+            }
         },
         key: {
             get(){

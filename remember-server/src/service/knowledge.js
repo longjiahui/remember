@@ -3,6 +3,9 @@ const {collections} = require('../config');
 const ObjectId = require('mongodb').ObjectId;
 const knowledgeCollection = collections.knowledge;
 
+//ms
+const dms = 1*24*60*60*1000;
+
 @service
 class KnowledgeService{
     async upsertKnowledge(knowledge){
@@ -18,7 +21,7 @@ class KnowledgeService{
             },
             condition: {
                 ...condition,
-                username: this.ctx.request.loginInfo
+                username: this.ctx.userService.getUsername()
             }
         })
     }
@@ -29,7 +32,6 @@ class KnowledgeService{
     }
     async review(_id){
         let knowledge = await this.ctx.db.collection(knowledgeCollection).findOne({_id: ObjectId(_id)});
-        console.log(knowledge);
         if(knowledge._next_date < Date.now()){
             //ok
             if(knowledge.c_level < knowledge.level){
@@ -40,7 +42,12 @@ class KnowledgeService{
                     knowledge.c_level = 9999;
                     knowledge._next_date = null;
                 }else{
-                   knowledge._next_date = this.ctx.utils.getDateByLevel(knowledge.date_create, knowledge.c_level + 1);
+                    //兼容一下，因为可能没有_prev_date
+                    if(!knowledge._prev_date){
+                        knowledge._prev_date = knowledge.date_create;
+                    }
+                    knowledge._next_date = this.getNextDate(knowledge._prev_date, knowledge.c_level + 1);
+                    knowledge._prev_date = Date.now();
                 }
                 await this.upsertKnowledge(knowledge);
             }else{
@@ -49,5 +56,12 @@ class KnowledgeService{
         }else{
             throw this.ctx.errorService.error('该知识不需要复习');
         }
+    }
+    getNextDate(prevDate, level){
+        var d = 1;
+        while(level--){
+            d+=d;
+        }
+        return prevDate + dms;
     }
 }

@@ -118,6 +118,9 @@ export default{
     getTimeDescDetail(time){
         return new moment(time).format('llll');
     },
+    getDayTime(time){
+        return new moment(time).format("LTS");
+    },
     uuid(){
         return uuid(); 
     }

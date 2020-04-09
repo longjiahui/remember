@@ -16,7 +16,7 @@ class KnowledgeController{
         let {categories, content, _id, level} = ctx.request.body;
         categories = ctx.utils.stringToArray(categories);
         if(!level || level < 0){
-            let user = ctx.userService.getUser({username: ctx.request.loginInfo});
+            let user = ctx.userService.getUser({username: ctx.userService.getUsername()});
             level = user.level;
             if(!level){
                 level = defaultLevel;
@@ -24,12 +24,12 @@ class KnowledgeController{
         }
         let knowledge = {
             categories, content,
-            username: ctx.request.loginInfo,
+            username: ctx.userService.getUsername(),
             date_create: Date.now(),
             _id,
             level,
             c_level: 0,
-            _next_date: ctx.utils.getDateByLevel(Date.now(), 1)
+            _next_date: ctx.knowledgeService.getNextDate(Date.now(), 1)
         }
         let res = await ctx.knowledgeService.upsertKnowledge(knowledge);
         res.categories = ctx.utils.arrayToString(res.categories);
