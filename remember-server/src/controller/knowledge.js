@@ -22,14 +22,21 @@ class KnowledgeController{
                 level = defaultLevel;
             }
         }
-        let knowledge = {
-            categories, content,
-            username: ctx.userService.getUsername(),
-            date_create: Date.now(),
-            _id,
-            level,
-            c_level: 0,
-            _next_date: ctx.knowledgeService.getNextDate(Date.now(), 1)
+        let knowledge;
+        if(!_id){
+            knowledge = {
+                categories, content,
+                username: ctx.userService.getUsername(),
+                date_create: Date.now(),
+                _id,
+                level,
+                c_level: 0,
+                _next_date: ctx.knowledgeService.getNextDate(Date.now(), 1)
+            };
+        }else{
+            knowledge = {
+                categories, content
+            };
         }
         let res = await ctx.knowledgeService.upsertKnowledge(knowledge);
         res.categories = ctx.utils.arrayToString(res.categories);
