@@ -46,7 +46,7 @@ class KnowledgeService{
                     if(!knowledge._prev_date){
                         knowledge._prev_date = knowledge.date_create;
                     }
-                    knowledge._next_date = this.getNextDate(knowledge._prev_date, knowledge.c_level + 1);
+                    knowledge._next_date = this.getNextDate(knowledge.c_level + 1);
                     knowledge._prev_date = Date.now();
                 }
                 await this.upsertKnowledge(knowledge);
@@ -57,11 +57,12 @@ class KnowledgeService{
             throw this.ctx.errorService.error('该知识不需要复习');
         }
     }
-    getNextDate(prevDate, level){
+    
+    getNextDate(level){
         var d = 1;
         while(level--){
             d+=d;
         }
-        return prevDate + dms;
+        return Date.now() + dms * d;
     }
 }

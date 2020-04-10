@@ -28,14 +28,13 @@ class KnowledgeController{
                 categories, content,
                 username: ctx.userService.getUsername(),
                 date_create: Date.now(),
-                _id,
                 level,
                 c_level: 0,
                 _next_date: ctx.knowledgeService.getNextDate(Date.now(), 1)
             };
         }else{
             knowledge = {
-                categories, content
+                categories, content, _id
             };
         }
         let res = await ctx.knowledgeService.upsertKnowledge(knowledge);
